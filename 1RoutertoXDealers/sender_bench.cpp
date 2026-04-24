@@ -6,7 +6,7 @@
 #include <fstream>
 
 int main() {
-    zmq::context_t context(1); // 1 I/O thread
+    zmq::context_t context(5); // 1 I/O thread
     zmq::socket_t router_socket(context, ZMQ_ROUTER);
     
     // Increase the high-water mark to handle large messages
