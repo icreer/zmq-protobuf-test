@@ -28,8 +28,12 @@ link_directories(${ZMQ_LIBRARY_DIRS})
 message(STATUS "ZeroMQ include dirs: ${ZMQ_INCLUDE_DIRS}")
 message(STATUS "ZeroMQ libraries: ${ZMQ_LIBRARIES}")
 
-
-
 add_executable(pushPullTest pushPullTest.cpp)
 target_link_libraries(pushPullTest PUBLIC ${ZMQ_LIBRARIES})
 target_include_directories(pushPullTest PUBLIC ${ZMQ_INCLUDE_DIRS})
+
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS payload.proto)
+
+add_executable(endToEndPushPullTest pushPullTestEndtoEnd.cpp ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(endToEndPushPullTest PUBLIC ${ZMQ_LIBRARIES} protobuf::libprotobuf)
+target_include_directories(endToEndPushPullTest PUBLIC ${ZMQ_INCLUDE_DIRS} ${CMAKE_CURRENT_BINARY_DIR})

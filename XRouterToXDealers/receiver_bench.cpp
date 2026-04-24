@@ -31,14 +31,19 @@ int main(int argc, char** argv) {
     std::cout << "DEALER: Connecting to ROUTER at " << addr << "..." << std::endl;
     dealer_socket.connect(addr);
 
-    size_t start_size = 2;
-    size_t end_size = static_cast<size_t>(1024LL * 1024 * 1024); // 1GB
-    int num_steps = 1000;
     std::vector<size_t> sizes;
-    double step = static_cast<double>(end_size - start_size) / (num_steps - 1);
-    for (int i = 0; i < num_steps; ++i) {
-        sizes.push_back(start_size + static_cast<size_t>(i * step));
+    for (size_t s = 2; s <= 10 * 1024 * 1024; s += 64) 
+    {
+        sizes.push_back(s);
     }
+
+    sizes.push_back(50ULL * 1024 * 1024);
+    sizes.push_back(100ULL * 1024 * 1024);
+    sizes.push_back(500ULL * 1024 * 1024);
+    sizes.push_back(1ULL * 1024 * 1024 * 1024);
+    sizes.push_back(static_cast<size_t>(1.5 * 1024 * 1024 * 1024));
+    sizes.push_back(static_cast<size_t>(1.98 * 1024 * 1024 * 1024));
+    sizes.push_back(1980ULL * 1024 * 1024); // ~1.98GB
     
     // Pre-allocate buffer to avoid thrashing memory during the benchmark
     std::vector<char> data(end_size, 'A');

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(zeromq_examples)
+project(oneToManyTest)
 
 # Find the ZeroMQ C library (libzmq)
 # This populates ZMQ_LIBRARIES and ZMQ_INCLUDE_DIRS
@@ -21,10 +21,7 @@ message(STATUS "ZeroMQ include dirs: ${ZMQ_INCLUDE_DIRS}")
 message(STATUS "ZeroMQ libraries: ${ZMQ_LIBRARIES}")
 
 
-add_executable(sender_bench sender_bench.cpp)
-target_link_libraries(sender_bench PUBLIC ${ZMQ_LIBRARIES})
-target_include_directories(sender_bench PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${ZMQ_INCLUDE_DIRS})
+add_executable(oneToManyTest onetomany.cpp)
+target_link_libraries(oneToManyTest PUBLIC ${ZMQ_LIBRARIES})
+target_include_directories(oneToManyTest PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${ZMQ_INCLUDE_DIRS})
 
-add_executable(receiver_bench receiver_bench.cpp)
-target_link_libraries(receiver_bench PUBLIC ${ZMQ_LIBRARIES})
-target_include_directories(receiver_bench PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${ZMQ_INCLUDE_DIRS})
